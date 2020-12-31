@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AspNetCore_Samples.Classes;
+using AspNetCore_Samples.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using AspNetCore_Samples.Models;
+using System.Diagnostics;
 
 namespace AspNetCore_Samples.Controllers
 {
+    [Authorize(Policy = Constants.AuthorizationPolicies.RefreshAuthRequirement)]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

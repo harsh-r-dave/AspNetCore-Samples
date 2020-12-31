@@ -1,19 +1,17 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.EntityFrameworkCore;
+using AspNetCore_Samples.Classes;
 using AspNetCore_Samples.Data;
+using AspNetCore_Samples.Factories;
+using AspNetCore_Samples.Filters;
+using AspNetCore_Samples.Models;
+using AspNetCore_Samples.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using AspNetCore_Samples.Models;
-using AspNetCore_Samples.Factories;
 
 namespace AspNetCore_Samples
 {
@@ -42,10 +40,20 @@ namespace AspNetCore_Samples
                 options.Password.RequireNonAlphanumeric = true;
             })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders()
+                .AddUserManager<ApplicationUserManager>()
                 .AddClaimsPrincipalFactory<AppClaimsPrincipalFactory>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddAuthorization(o =>
+            {
+                o.AddPolicy(Constants.AuthorizationPolicies.RefreshAuthRequirement,
+                    policy => policy.Requirements.Add(new RefreshAuthRequirement()));
+            });
+
+            services.AddScoped<IAuthorizationHandler, RefreshAuthHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

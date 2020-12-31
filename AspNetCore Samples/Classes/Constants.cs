@@ -10,6 +10,12 @@ namespace AspNetCore_Samples.Classes
         public static class ClaimTypes
         {
             public const string Name = "ClaimTypes.Name";
+            public const string NextRefreshUtc = "ClaimTypes.NextRefreshUtc";
+        }
+
+        public static class AuthorizationPolicies
+        {
+            public const string RefreshAuthRequirement = "AuthorizationPolicies.RefreshAuthRequirement";
         }
     }
 }
