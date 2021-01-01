@@ -8,7 +8,7 @@ using System.Diagnostics;
 namespace AspNetCore_Samples.Controllers
 {
     [Authorize(Policy = Constants.AuthorizationPolicies.RefreshAuthRequirement)]
-    public class HomeController : Controller
+    public class HomeController : ParentController
     {
         private readonly ILogger<HomeController> _logger;
 
@@ -19,6 +19,7 @@ namespace AspNetCore_Samples.Controllers
 
         public IActionResult Index()
         {
+            SetSiteMessage(MessageType.Success, DisplayFor.FullRequest, "Test Message");
             return View();
         }
 
