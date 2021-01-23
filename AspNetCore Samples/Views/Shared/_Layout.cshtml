@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="~/css/site.css" />
 
     <link href="~/lib/toastr/toastr.min.css" rel="stylesheet" />
+
+    @RenderSection("Styles", required: false)
 </head>
 <body>
     <header>
@@ -48,6 +50,7 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/lib/toastr/toastr.js"></script>
     <script src="~/js/toast-config.js" asp-append-version="true"></script>
+   
     @RenderSection("Scripts", required: false)
 
     @await Component.InvokeAsync(AspNetCore_Samples.Classes.Constants.ViewComponentKeys.SiteMessageView)

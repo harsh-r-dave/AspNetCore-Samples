@@ -1,4 +1,13 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
+﻿// Setup global object with modules
+var SamplesJs = {
+    Pages: {
+        DataTable: {}
+    },
+    DataTableFunctions: {
+        initSearch: function ($txtSearch, dataTable) {
+            $txtSearch.on('keyup', function () {
+                dataTable.search(this.value).draw();
+            });
+        }
+    }
+};
